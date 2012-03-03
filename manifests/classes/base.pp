@@ -24,9 +24,10 @@ class filesystem::base {
         owner   => 'root',
     }
 
-    # /exports is the standard location for bind mounting of file systems,
+    # $exports is the standard location for bind mounting of file systems,
     # to be shared via NFS.
-    file { '/exports':
+    $exports = '/exports'
+    file { "${exports}":
         ensure  => directory,
         selrole => 'object_r',
         seltype => 'nfs_t',
