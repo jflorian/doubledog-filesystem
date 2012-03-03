@@ -13,11 +13,11 @@
 #       source                          origin of file system
 #
 # Requires:
-#       Class['filesystem']
+#       Class['filesystem::base']
 #
 # Example usage:
 #
-#       include filesystem
+#       include filesystem::base
 #
 #       filesystem::mount { 'data_pool':
 #           source  => '/dev/sda7',
@@ -34,10 +34,12 @@ define filesystem::mount ($atboot=true, $ensure='mounted', $fstype='ext4',
         group   => 'root',
         mode    => '0755',
         owner   => 'root',
+        replace => false,
+        require => Class['filesystem::base'],
     }
 
     mount { "${mount_point}":
-        atboot  => $atboot,
+        atboot  => "${atboot}",
         # Make sure physical mounts are in place before attempting any
         # auto-mounts or NFS exporting of the same.
         before  => [
@@ -45,7 +47,7 @@ define filesystem::mount ($atboot=true, $ensure='mounted', $fstype='ext4',
             Class['nfs::server'],
         ],
         device  => "${source}",
-        ensure  => $ensure,
+        ensure  => "${ensure}",
         fstype  => "${fstype}",
         require => File["${mount_point}"],
     }
