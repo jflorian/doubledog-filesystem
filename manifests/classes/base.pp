@@ -28,6 +28,9 @@ class filesystem::base {
     # to be shared via NFS.
     file { '/exports':
         ensure  => directory,
+        selrole => 'object_r',
+        seltype => 'nfs_t',
+        seluser => 'system_u',
     }
 
     # /mnt is the standard location for dynamic mounting of file systems,
