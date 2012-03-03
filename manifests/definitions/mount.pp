@@ -25,7 +25,7 @@
 
 
 define filesystem::mount ($atboot=true, $ensure='mounted', $fstype='ext4',
-                          $source) {
+                          $options='defaults', $source) {
 
     $mount_point = "${filesystem::base::storage}/${name}"
 
@@ -49,6 +49,7 @@ define filesystem::mount ($atboot=true, $ensure='mounted', $fstype='ext4',
         device  => "${source}",
         ensure  => "${ensure}",
         fstype  => "${fstype}",
+        options => "${options}",
         require => File["${mount_point}"],
     }
 
