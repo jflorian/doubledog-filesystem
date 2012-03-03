@@ -39,9 +39,10 @@ class filesystem::base {
         ensure  => directory,
     }
 
-    # /storage is the standard location for static mounting of file systems
+    # $storage is the standard location for static mounting of file systems
     # from physical storage such as LVM.
-    file { '/storage':
+    $storage = '/storage'
+    file { "${storage}":
         ensure  => directory,
     }
 
