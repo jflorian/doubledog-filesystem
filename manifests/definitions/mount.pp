@@ -40,12 +40,6 @@ define filesystem::mount ($atboot=true, $ensure='mounted', $fstype='ext4',
 
     mount { "${mount_point}":
         atboot  => "${atboot}",
-        # Make sure physical mounts are in place before attempting any
-        # auto-mounts or NFS exporting of the same.
-        before  => [
-            Class['autofs'],
-            Class['nfs::server'],
-        ],
         device  => "${source}",
         ensure  => "${ensure}",
         fstype  => "${fstype}",
