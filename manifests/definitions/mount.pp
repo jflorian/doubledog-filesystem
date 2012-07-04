@@ -25,15 +25,16 @@
 
 
 define filesystem::mount ($atboot=true, $ensure='mounted', $fstype='ext4',
-                          $options='defaults', $source) {
+                          $options='defaults', $owner='root', $group='root',
+                          $source) {
 
     $mount_point = "${filesystem::base::storage}/${name}"
 
     file { "${mount_point}":
         ensure  => directory,
-        group   => 'root',
+        group   => "${owner}",
         mode    => '0755',
-        owner   => 'root',
+        owner   => "${group}",
         replace => false,
         require => Class['filesystem::base'],
     }
