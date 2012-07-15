@@ -1,4 +1,4 @@
-# modules/filesystem/manifests/classes/base.pp
+# modules/filesystem/manifests/base.pp
 #
 # Synopsis:
 #       Configures the base filesystem on a host.

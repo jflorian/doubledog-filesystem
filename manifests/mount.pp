@@ -1,4 +1,4 @@
-# modules/filesystem/manifests/definitions/mount.pp
+# modules/filesystem/manifests/mount.pp
 #
 # Synopsis:
 #       Mount a physical filesystem.
