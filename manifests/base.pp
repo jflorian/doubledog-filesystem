@@ -10,18 +10,19 @@
 #
 # Requires:
 #       NONE
-#
-# Example usage:
-#
-#       include filesystem::base
+
 
 class filesystem::base {
 
+    # Stage => first
+
     # Set class defaults.
     File {
+        owner   => 'root',
         group   => 'root',
         mode    => '0755',
-        owner   => 'root',
+        seluser => 'system_u',
+        selrole => 'object_r',
     }
 
     # $exports is the standard location for bind mounting of file systems,
@@ -29,15 +30,17 @@ class filesystem::base {
     $exports = '/exports'
     file { "${exports}":
         ensure  => directory,
-        selrole => 'object_r',
         seltype => 'nfs_t',
-        seluser => 'system_u',
     }
 
     # /mnt is the standard location for dynamic mounting of file systems,
     # typically via NFS.
     file { '/mnt':
         ensure  => directory,
+    }
+
+    file { '/opt':
+        seltype => 'usr_t',
     }
 
     # $storage is the standard location for static mounting of file systems
