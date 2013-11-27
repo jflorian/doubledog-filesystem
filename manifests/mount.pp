@@ -17,7 +17,7 @@
 #
 # Example usage:
 #
-#       include filesystem::base
+#       include 'filesystem::base'
 #
 #       filesystem::mount { 'data_pool':
 #           source  => '/dev/sda7',
