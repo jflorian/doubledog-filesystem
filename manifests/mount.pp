@@ -13,11 +13,11 @@
 #       source                          origin of file system
 #
 # Requires:
-#       Class['filesystem::base']
+#       Class['doubledog::subsys::filesystem']
 #
 # Example usage:
 #
-#       include 'filesystem::base'
+#       include 'doubledog::subsys::filesystem'
 #
 #       filesystem::mount { 'data_pool':
 #           source  => '/dev/sda7',
@@ -28,7 +28,7 @@ define filesystem::mount ($atboot=true, $ensure='mounted', $fstype='ext4',
                           $options='defaults', $owner='root', $group='root',
                           $source) {
 
-    $mount_point = "${filesystem::base::storage}/${name}"
+    $mount_point = "${doubledog::subsys::filesystem::storage}/${name}"
 
     file { "${mount_point}":
         ensure  => directory,
@@ -36,7 +36,7 @@ define filesystem::mount ($atboot=true, $ensure='mounted', $fstype='ext4',
         mode    => '0755',
         owner   => "${group}",
         replace => false,
-        require => Class['filesystem::base'],
+        require => Class['doubledog::subsys::filesystem'],
     }
 
     mount { "${mount_point}":
