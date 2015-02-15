@@ -1,51 +1,125 @@
 # modules/filesystem/manifests/mount.pp
 #
-# Synopsis:
-#       Mount a physical filesystem.
+# == Define: filesystem::mount
 #
-# Parameters:
-#       Name__________  Default_______  Description___________________________
+# Manages a filesystem mount configuration.
 #
-#       name                            mount name (path is implied)
-#       atboot          true            mounted at boot?
-#       ensure          present         mounted/present/unmounted/absent
-#       fstype          ext4            file system type
-#       source                          origin of file system
+# === Parameters
 #
-# Requires:
-#       Class['doubledog::subsys::filesystem']
+# ==== Required
 #
-# Example usage:
+# [*namevar*]
+#   An arbitrary identifier for the mount instance unless the "point"
+#   parameter is not set in which case this must provide the value normally
+#   set with the "point" parameter.
 #
-#       include 'doubledog::subsys::filesystem'
+# [*backing*]
+#   The block device providing the backing storage that is to be mounted.
 #
-#       filesystem::mount { 'data_pool':
-#           source  => '/dev/sda7',
-#       }
+# ==== Optional
+#
+# [*atboot*]
+#   Whether to mount the mount at boot. Defaults to true.
+#
+#   Not all platforms support this.
+#
+# [*ensure*]
+#   Control what to do with this mount.  Defaults to 'mounted'.
+#
+#   Set to 'mounted'  to add it to the fstab and mount it.  Set this attribute
+#   to 'unmounted' to make sure the filesystem is in the fstab but not mounted
+#   (if the filesystem is currently mounted, it will be unmounted).  Set it to
+#   'absent' to unmount (if necessary) and remove the filesystem from the
+#   fstab.  Set to 'present' to add to fstab but not change mount/unmount
+#   status.
+#
+# [*fstype*]
+#   The mount type.  Defaults to 'auto'.
+#
+#   Valid values depend on the operating system.
+#
+# [*group*]
+#   Group that is to own the mount point.  Defaults to 'root'.
+#
+# [*mode*]
+#   File system mode of the mount point.  Defaults to '0755'.
+#
+# [*options*]
+#   Mount options as they should appear in the fstab.  Defaults to 'defaults'.
+#
+# [*owner*]
+#   User that is to own the mount point.  Defaults to 'root'.
+#
+# [*point*]
+#   The absolute path to where the file system is to be mounted.
+#
+#   This directory This may be used in place of "namevar" if it's beneficial to give namevar
+#   an arbitrary value.
+#
+# [*pass*]
+#   The pass in which the mount is checked.  Defaults to 3.
+# 
+# [*remounts*]
+#   Whether the mount can be remounted with `mount -o remount`.  If this is
+#   false, then the filesystem will be unmounted and remounted manually, which
+#   is prone to failure.
+#
+# === Authors
+#
+#   John Florian <jflorian@doubledog.org>
+#
+# === Copyright
+#
+# Copyright 2012-2015 John Florian
 
 
-define filesystem::mount ($atboot=true, $ensure='mounted', $fstype='ext4',
-                          $options='defaults', $owner='root', $group='root',
-                          $source) {
+define filesystem::mount (
+        $backing,
+        $atboot=true,
+        $ensure='mounted',
+        $fstype='auto',
+        $group='root',
+        $mode='0755',
+        $options='defaults',
+        $owner='root',
+        $pass=3,
+        $point=undef,
+        $seluser='system_u',
+        $selrole='object_r',
+        $seltype='default_t',
+    ) {
 
-    $mount_point = "${doubledog::subsys::filesystem::storage}/${name}"
-
-    file { "${mount_point}":
-        ensure  => directory,
-        group   => "${owner}",
-        mode    => '0755',
-        owner   => "${group}",
-        replace => false,
-        require => Class['doubledog::subsys::filesystem'],
+    if $point {
+        $_point = $point
+    } else {
+        $_point = $name
     }
 
-    mount { "${mount_point}":
-        atboot  => "${atboot}",
-        device  => "${source}",
-        ensure  => "${ensure}",
-        fstype  => "${fstype}",
-        options => "${options}",
-        require => File["${mount_point}"],
+    validate_absolute_path($_point)
+
+    validate_re($ensure, '^(defined|present|unmounted|absent|mounted)$',
+        "${title}: 'ensure' must be one of 'defined', 'present', 'unmounted', 'absent' or 'mounted'"
+    )
+
+    validate_bool($atboot)
+
+    file { $_point:
+        ensure  => directory,
+        owner   => $group,
+        group   => $owner,
+        mode    => $mode,
+        seluser => $seluser,
+        selrole => $selrole,
+        seltype => $seltype,
+    } ->
+
+    mount { $_point:
+        ensure  => $ensure,
+        atboot  => $atboot,
+        device  => $backing,
+        fstype  => $fstype,
+        options => $options,
+        pass    => $pass,
     }
 
 }
