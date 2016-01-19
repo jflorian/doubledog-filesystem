@@ -99,8 +99,8 @@ define filesystem::mount (
 
     file { $point:
         ensure  => directory,
-        owner   => $group,
-        group   => $owner,
+        owner   => $owner,
+        group   => $group,
         mode    => $mode,
         seluser => $seluser,
         selrole => $selrole,
