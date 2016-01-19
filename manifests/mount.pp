@@ -83,19 +83,13 @@ define filesystem::mount (
         $options='defaults',
         $owner='root',
         $pass=3,
-        $point=undef,
+        $point=$title,
         $seluser='system_u',
         $selrole='object_r',
         $seltype='default_t',
     ) {
 
-    if $point {
-        $_point = $point
-    } else {
-        $_point = $name
-    }
-
-    validate_absolute_path($_point)
+    validate_absolute_path($point)
 
     validate_re($ensure, '^(defined|present|unmounted|absent|mounted)$',
         "${title}: 'ensure' must be one of 'defined', 'present', 'unmounted', 'absent' or 'mounted'"
@@ -103,7 +97,7 @@ define filesystem::mount (
 
     validate_bool($atboot)
 
-    file { $_point:
+    file { $point:
         ensure  => directory,
         owner   => $group,
         group   => $owner,
@@ -113,7 +107,7 @@ define filesystem::mount (
         seltype => $seltype,
     } ->
 
-    mount { $_point:
+    mount { $point:
         ensure  => $ensure,
         atboot  => $atboot,
         device  => $backing,
