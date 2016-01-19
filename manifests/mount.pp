@@ -97,8 +97,7 @@ define filesystem::mount (
 
     validate_bool($atboot)
 
-    file { $point:
-        ensure  => directory,
+    ::filesystem::mount::point { $point:
         owner   => $owner,
         group   => $group,
         mode    => $mode,
