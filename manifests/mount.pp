@@ -70,32 +70,27 @@
 #
 # === Copyright
 #
-# Copyright 2012-2016 John Florian
+# Copyright 2012-2017 John Florian
 
 
 define filesystem::mount (
-        $backing,
-        $atboot=true,
-        $ensure='mounted',
-        $fstype='auto',
-        $group='root',
-        $mode='0755',
-        $options='defaults',
-        $owner='root',
-        $pass=3,
-        $point=$title,
-        $seluser='system_u',
-        $selrole='object_r',
-        $seltype='default_t',
+        String[1] $backing,
+        Boolean $atboot=true,
+        Enum['defined', 'present', 'unmounted', 'absent', 'mounted'] $ensure='mounted',
+        String[1] $fstype='auto',
+        String[1] $group='root',
+        Boolean $manage_mount_point=true,
+        String[1] $mode='0755',
+        String[1] $options='defaults',
+        String[1] $owner='root',
+        Integer[0] $pass=3,
+        String[1] $point=$title,
+        String[1] $selrole='object_r',
+        String[1] $seltype='default_t',
+        String[1] $seluser='system_u',
     ) {
 
     validate_absolute_path($point)
-
-    validate_re($ensure, '^(defined|present|unmounted|absent|mounted)$',
-        "${title}: 'ensure' must be one of 'defined', 'present', 'unmounted', 'absent' or 'mounted'"
-    )
-
-    validate_bool($atboot)
 
     ::filesystem::mount::point { $point:
         owner   => $owner,
