@@ -58,11 +58,6 @@
 #
 # [*pass*]
 #   The pass in which the mount is checked.  Defaults to 3.
-# 
-# [*remounts*]
-#   Whether the mount can be remounted with `mount -o remount`.  If this is
-#   false, then the filesystem will be unmounted and remounted manually, which
-#   is prone to failure.
 #
 # === Authors
 #
