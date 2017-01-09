@@ -53,8 +53,8 @@
 # [*point*]
 #   The absolute path to where the file system is to be mounted.
 #
-#   This directory This may be used in place of "namevar" if it's beneficial to give namevar
-#   an arbitrary value.
+#   This directory This may be used in place of "namevar" if it's beneficial
+#   to give namevar an arbitrary value.
 #
 # [*pass*]
 #   The pass in which the mount is checked.  Defaults to 3.
