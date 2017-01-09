@@ -39,16 +39,25 @@
 #   Valid values depend on the operating system.
 #
 # [*group*]
-#   Group that is to own the mount point.  Defaults to 'root'.
+#   Group that is to own the mount point.  Defaults to 'root'.  Ignored if
+#   "manage_mount_point" is false.
+#
+# [*manage_mount_point*]
+#   Should the mount point directory be managed here?  Defaults to true which
+#   is perfect for most use cases.  However, if another Puppet module is
+#   managing that directory, this must be set to false to avoid conflict
+#   (which will cause obvious "already declared" Puppet errors).
 #
 # [*mode*]
-#   File system mode of the mount point.  Defaults to '0755'.
+#   File system mode of the mount point.  Defaults to '0755'.  Ignored if
+#   "manage_mount_point" is false.
 #
 # [*options*]
 #   Mount options as they should appear in the fstab.  Defaults to 'defaults'.
 #
 # [*owner*]
-#   User that is to own the mount point.  Defaults to 'root'.
+#   User that is to own the mount point.  Defaults to 'root'.  Ignored if
+#   "manage_mount_point" is false.
 #
 # [*point*]
 #   The absolute path to where the file system is to be mounted.
@@ -61,15 +70,15 @@
 #
 # [*selrole*]
 #   The SELinux role component of the context applied to the mount point.
-#   Defaults to 'object_r'.
+#   Defaults to 'object_r'.  Ignored if "manage_mount_point" is false.
 #
 # [*seltype*]
 #   The SELinux type component of the context applied to the mount point.
-#   Defaults to 'default_t'.
+#   Defaults to 'default_t'.  Ignored if "manage_mount_point" is false.
 #
 # [*seluser*]
 #   The SELinux user component of the context applied to the mount point.
-#   Defaults to 'system_u'.
+#   Defaults to 'system_u'.  Ignored if "manage_mount_point" is false.
 #
 # === Authors
 #
@@ -99,14 +108,17 @@ define filesystem::mount (
 
     validate_absolute_path($point)
 
-    ::filesystem::mount::point { $point:
-        owner   => $owner,
-        group   => $group,
-        mode    => $mode,
-        seluser => $seluser,
-        selrole => $selrole,
-        seltype => $seltype,
-    } ->
+    if $manage_mount_point {
+        ::filesystem::mount::point { $point:
+            owner   => $owner,
+            group   => $group,
+            mode    => $mode,
+            seluser => $seluser,
+            selrole => $selrole,
+            seltype => $seltype,
+            before  => Mount[$point],
+        }
+    }
 
     mount { $point:
         ensure  => $ensure,
