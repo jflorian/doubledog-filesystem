@@ -59,6 +59,18 @@
 # [*pass*]
 #   The pass in which the mount is checked.  Defaults to 3.
 #
+# [*selrole*]
+#   The SELinux role component of the context applied to the mount point.
+#   Defaults to 'object_r'.
+#
+# [*seltype*]
+#   The SELinux type component of the context applied to the mount point.
+#   Defaults to 'default_t'.
+#
+# [*seluser*]
+#   The SELinux user component of the context applied to the mount point.
+#   Defaults to 'system_u'.
+#
 # === Authors
 #
 #   John Florian <jflorian@doubledog.org>
