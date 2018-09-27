@@ -40,6 +40,8 @@ This module lets you manage filesystems.
 
 **Defined types:**
 
+* [filesystem::mount](#filesystemmount-defined-type)
+
 **Data types:**
 
 * [Filesystem::Mount::Ensure](#filesystemmountensure-data-type)
@@ -49,6 +51,62 @@ This module lets you manage filesystems.
 
 
 ### Defined types
+
+#### filesystem::mount defined type
+
+This defined type wraps the standard Puppet `mount` resource type but has the additional capability of managing the underlying mount point.
+
+##### `namevar` (required)
+An arbitrary identifier for the mount instance unless the *point* parameter is not set in which case this must provide the value normally set with the *point* parameter.
+
+##### `backing` (required)
+The block device providing the backing storage for the instance that is to be mounted.
+
+##### `atboot`
+Whether the instance is to be mounted at boot.  Defaults to `true`.
+
+Not all platforms support this.
+
+##### `ensure`
+Control what to do with this instance.  Defaults to `'mounted'`.
+
+* `'mounted'` to ensure the instance is present in the fstab and mounted
+* `'unmounted'` to ensure the instance is present in the fstab but not mounted
+* `'absent'` to ensure the instance is not mount nor present in the fstab
+* `'present'` to ensure the instance is present in the fstab, but otherwise as is
+
+##### `fstype`
+The mount type.  Defaults to `'auto'`.  Valid values depend on the operating system.
+
+##### `group`
+Group that is to own the mount point.  Defaults to `'root'`.  Ignored if *manage_mount_point* is `false`.
+
+##### `manage_mount_point`
+Should the mount point directory be managed here?  Defaults to `true` which is ideal for most use cases.  However, if another Puppet module is managing the *point* directory, this must be set to `false` to avoid conflicting declarations.
+
+##### `mode`
+Filesystem mode of the mount *point* directory.  Defaults to `'0755'`.  Ignored if *manage_mount_point* is `false`.
+
+##### `options`
+Mount options as they should appear in the fstab.  Defaults to `'defaults'`.
+
+##### `owner`
+User that is to own the mount *point* directory.  Defaults to `'root'`.  Ignored if *manage_mount_point* is `false`.
+
+##### `point`
+The absolute path to where the filesystem is to be mounted.  This may be used in place of *namevar* if it's beneficial to give *namevar* an arbitrary value.
+
+##### `pass`
+The pass in which the mount is checked.  Defaults to `3`.
+
+##### `selrole`
+The SELinux role component of the context applied to the mount *point* directory.  Defaults to `'object_r'`.  Ignored if *manage_mount_point* is `false`.
+
+##### `seltype`
+The SELinux type component of the context applied to the mount *point* directory.  Defaults to `'default_t'`.  Ignored if *manage_mount_point* is `false`.
+
+##### `seluser`
+The SELinux user component of the context applied to the mount *point* directory.  Defaults to `'system_u'`.  Ignored if *manage_mount_point* is `false`.
 
 
 ### Data types
