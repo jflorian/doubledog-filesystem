@@ -118,7 +118,7 @@ This will ensure that the named directory exists.  Any parent directories must b
 An arbitrary identifier for the mount point instance unless the *point* parameter is not set in which case this must provide the value normally set with the *point* parameter.
 
 ##### `ensure`
-Instance is to be `'present'` (default) or `'absent'`.
+Instance is to be `'present'` (default) or `'absent'`.  Alternatively, a Boolean value may also be used with `true` equivalent to `present` and `false` equivalent to `absent`.
 
 ##### `group`
 Group that is to own the mount *point* directory.  Defaults to `'root'`.

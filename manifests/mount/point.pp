@@ -15,21 +15,17 @@
 
 
 define filesystem::mount::point (
-        $ensure='present',
-        $group='root',
-        $mode='0755',
-        $owner='root',
-        $point=$title,
-        $seluser='system_u',
-        $selrole='object_r',
-        $seltype='default_t',
+        Ddolib::File::Ensure    $ensure='present',
+        String[1]               $group='root',
+        String[1]               $mode='0755',
+        String[1]               $owner='root',
+        String[1]               $point=$title,
+        String[1]               $selrole='object_r',
+        String[1]               $seltype='default_t',
+        String[1]               $seluser='system_u',
     ) {
 
     validate_absolute_path($point)
-
-    validate_re($ensure, '^(present|absent)$',
-        "${title}: 'ensure' must be one of 'present' or 'absent'"
-    )
 
     $dir_ensure = $ensure ? {
         'absent' => $ensure,
