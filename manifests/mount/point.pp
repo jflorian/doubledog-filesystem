@@ -1,40 +1,7 @@
-# modules/filesystem/manifests/mount/point.pp
 #
 # == Define: filesystem::mount::point
 #
 # Manages a filesystem mount point.
-#
-# This will ensure that the named directory exists.  Any parent directories
-# must be managed separately.
-#
-# === Parameters
-#
-# ==== Required
-#
-# [*namevar*]
-#   An arbitrary identifier for the mount instance unless the "point"
-#   parameter is not set in which case this must provide the value normally
-#   set with the "point" parameter.
-#
-# ==== Optional
-#
-# [*ensure*]
-#   Instance is to be 'present' (default) or 'absent'.
-#
-# [*group*]
-#   Group that is to own the mount point.  Defaults to 'root'.
-#
-# [*mode*]
-#   File system mode of the mount point.  Defaults to '0755'.
-#
-# [*owner*]
-#   User that is to own the mount point.  Defaults to 'root'.
-#
-# [*point*]
-#   The absolute path in the file system to the mount point.
-#
-#   This may be used in place of "namevar" if it's beneficial to give namevar
-#   an arbitrary value.
 #
 # === Authors
 #
@@ -42,7 +9,9 @@
 #
 # === Copyright
 #
-# Copyright 2012-2016 John Florian
+# This file is part of the doubledog-filesystem Puppet module.
+# Copyright 2012-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 
 define filesystem::mount::point (
