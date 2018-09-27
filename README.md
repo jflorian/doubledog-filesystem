@@ -40,11 +40,22 @@ This module lets you manage filesystems.
 
 **Defined types:**
 
+**Data types:**
+
+* [Filesystem::Mount::Ensure](#filesystemmountensure-data-type)
+
 
 ### Classes
 
 
 ### Defined types
+
+
+### Data types
+
+#### `Filesystem::Mount::Ensure` data type
+
+Matches acceptable *ensure* values for [filesystem::mount](#filesystemmount-defined-type) resources: `absent`, `defined`, `mounted`, `present` or `unmounted`.
 
 
 ## Limitations

@@ -86,13 +86,15 @@
 #
 # === Copyright
 #
-# Copyright 2012-2017 John Florian
+# This file is part of the doubledog-filesystem Puppet module.
+# Copyright 2012-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 
 define filesystem::mount (
         String[1] $backing,
         Boolean $atboot=true,
-        Enum['defined', 'present', 'unmounted', 'absent', 'mounted'] $ensure='mounted',
+        Filesystem::Mount::Ensure   $ensure='mounted',
         String[1] $fstype='auto',
         String[1] $group='root',
         Boolean $manage_mount_point=true,
