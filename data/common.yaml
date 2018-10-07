@@ -1,0 +1,11 @@
+# This file is part of the doubledog-filesystem Puppet module.
+# Copyright 2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+---
+
+#filesystem::enable:                   true
+#filesystem::ensure:                   running
+#filesystem::packages:
+#    - filesystem
+#filesystem::service:                  filesystem
