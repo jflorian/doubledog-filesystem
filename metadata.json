@@ -1,6 +1,6 @@
 {
     "name": "doubledog-filesystem",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "author": "John Florian",
     "summary": "A module to manage filesystems",
     "license": "GPL-3.0",
