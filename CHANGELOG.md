@@ -1,7 +1,7 @@
 <!--
-# This file is part of the doubledog-filesystem Puppet module.
-# Copyright 2018 John Florian
-# SPDX-License-Identifier: GPL-3.0-or-later
+This file is part of the doubledog-filesystem Puppet module.
+Copyright 2018-2019 John Florian
+SPDX-License-Identifier: GPL-3.0-or-later
 
 Template
 
@@ -17,11 +17,19 @@ Template
 
 # Change log
 
+All notable changes to this project (since v1.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
+
+## [1.2.0] 2019-05-02
+### Added
+- Fedora 30 support
+### Changed
+- dependency on `doubledog/ddolib` now expects 1 >= version < 2
+### Removed
+- Fedora 27 support
+
 ## [1.1.0] 2018-12-15
 ### Changed
 - puppetlabs-stdlib dependency now allows version 5
-
-All notable changes to this project (since v1.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
 ## [1.0.0 and prior] 2018-12-15
 
