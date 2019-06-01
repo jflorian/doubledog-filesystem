@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-filesystem Puppet module.
-# Copyright 2012-2018 John Florian
+# Copyright 2012-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -19,13 +19,11 @@ define filesystem::mount::point (
         String[1]               $group='root',
         String[1]               $mode='0755',
         String[1]               $owner='root',
-        String[1]               $point=$title,
+        Stdlib::Absolutepath    $point=$title,
         String[1]               $selrole='object_r',
         String[1]               $seltype='default_t',
         String[1]               $seluser='system_u',
     ) {
-
-    validate_absolute_path($point)
 
     $dir_ensure = $ensure ? {
         'absent' => $ensure,
