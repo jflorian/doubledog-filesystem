@@ -22,12 +22,12 @@ All notable changes to this project (since v1.0.0) will be documented in this fi
 ## [1.4.0] WIP
 ### Added
 - CentOS 8 support
-- Fedora 31 support
+- Fedora 31-33 support
 ### Changed
 - dependency on `puppetlabs-stdlib` now allows version 6
 ### Deprecated
 ### Removed
-- Fedora 28 support
+- Fedora 28-30 support
 ### Fixed
 ### Security
 
