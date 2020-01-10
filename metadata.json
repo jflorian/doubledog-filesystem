@@ -1,26 +1,5 @@
 {
-    "name": "doubledog-filesystem",
-    "version": "1.3.0",
     "author": "John Florian",
-    "summary": "A module to manage filesystems",
-    "license": "GPL-3.0",
-    "source": "https://www.doubledog.org/git/puppet-filesystem.git",
-    "project_page": "https://github.com/jflorian/doubledog-filesystem",
-    "issues_url": "https://github.com/jflorian/doubledog-filesystem/issues",
-    "operatingsystem_support": [
-        {
-            "operatingsystem": "CentOS",
-            "operatingsystemmajrelease": "7"
-        },
-        {
-            "operatingsystem": "Fedora",
-            "operatingsystemrelease": [
-                "28",
-                "29",
-                "30"
-            ]
-        }
-    ],
     "dependencies": [
         {
             "name": "doubledog/ddolib",
@@ -30,5 +9,26 @@
             "name": "puppetlabs/stdlib",
             "version_requirement": ">= 4.0.0 < 6.0.0"
         }
-    ]
+    ],
+    "issues_url": "https://github.com/jflorian/doubledog-filesystem/issues",
+    "license": "GPL-3.0",
+    "name": "doubledog-filesystem",
+    "operatingsystem_support": [
+        {
+            "operatingsystem": "CentOS",
+            "operatingsystemmajrelease": "7"
+        },
+        {
+            "operatingsystem": "Fedora",
+            "operatingsystemrelease": [
+                "29",
+                "30",
+                "31"
+            ]
+        }
+    ],
+    "project_page": "https://github.com/jflorian/doubledog-filesystem",
+    "source": "https://www.doubledog.org/git/puppet-filesystem.git",
+    "summary": "A module to manage filesystems",
+    "version": "1.3.0"
 }
