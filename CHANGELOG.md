@@ -1,11 +1,11 @@
 <!--
 This file is part of the doubledog-filesystem Puppet module.
-Copyright 2018-2019 John Florian
+Copyright 2018-2020 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 
 Template
 
-## [VERSION] DATE/WIP
+## [VERSION] WIP
 ### Added
 ### Changed
 ### Deprecated
@@ -18,6 +18,15 @@ Template
 # Change log
 
 All notable changes to this project (since v1.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
+
+## [1.4.0] 2020-12-08
+### Added
+- CentOS 8 support
+- Fedora 31-33 support
+### Changed
+- dependency on `puppetlabs-stdlib` now allows version 6
+### Removed
+- Fedora 28-30 support
 
 ## [1.3.0] 2019-06-06
 ### Added
